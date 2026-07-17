@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf8"><title>تمرير لانهائي</title><style>
+body{font-family:Tahoma,sans-serif;background:#f3f4f6;padding:20px;direction:rtl}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1000px;margin:auto}
+.product{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px;text-align:center}
+.product img{width:80px;height:80px;border-radius:8px}
+.product .name{font-weight:bold;margin:8px 0 4px}
+.product .price{color:#059669;font-weight:bold}
+.product a{display:inline-block;margin-top:6px;color:#4f46e5}
+.pager{max-width:1000px;margin:20px auto;text-align:center}
+.pager a, .pager button{padding:8px 16px;background:#4f46e5;color:#fff;border-radius:8px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
+.pager a.disabled, .pager button.disabled{background:#9ca3af;pointer-events:none}
+table{border-collapse:collapse;width:700px;margin:20px auto;background:#fff}
+th,td{border:1px solid #d1d5db;padding:8px}
+th{background:#eef2ff}
+</style></head><body>
+<h1 style="text-align:center">تمرير لانهائي</h1>
+<div class="grid" id="grid" style="grid-template-columns:repeat(2,1fr)"></div>
+<script>
+let n = 0; const TOTAL = 60; const img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAIAAAABc2X6AAAAeElEQVR4nO3PAQ3AIADAMMAqCf5xcBd/srcKtrnPHX+yvg54m+E6w3WG6wzXGa4zXGe4znCd4TrDdYbrDNcZrjNcZ7jOcJ3hOsN1husM1xmuM1xnuM5wneE6w3WG6wzXGa4zXGe4znCd4TrDdYbrDNcZrjNcZ7juAeFlAlogorz9AAAAAElFTkSuQmCC";
+function add() {
+  const g = document.getElementById('grid');
+  for (let k = 0; k < 10 && n < TOTAL; k++) {
+    n++;
+    g.insertAdjacentHTML('beforeend', `<div class="product"><img src="${img}"><div class="name">عنصر لانهائي ${n}</div><div class="price">${n*333} د.ج</div><a href="/demo/s${n}.html">رابط</a></div>`);
+  }
+}
+add();
+window.addEventListener('scroll', () => {
+  if (n < TOTAL && window.innerHeight + window.scrollY >= document.body.scrollHeight - 50) setTimeout(add, 200);
+});
+</script></body></html>

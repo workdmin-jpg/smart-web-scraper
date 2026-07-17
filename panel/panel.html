@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستخرج الويب الذكي</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">
+    <span class="logo">🕷</span>
+    <span class="title">مستخرج الويب الذكي</span>
+  </div>
+  <button id="btnClose" title="إخفاء اللوحة">✕</button>
+</header>
+
+<nav id="tabs">
+  <button class="tab active" data-tab="build">🎯 المحددات</button>
+  <button class="tab" data-tab="nav">🧭 التنقل</button>
+  <button class="tab" data-tab="data">📊 البيانات</button>
+  <button class="tab" data-tab="projects">💾 مشاريعي</button>
+</nav>
+
+<!-- ==================== تبويب المحددات ==================== -->
+<section id="tab-build" class="tabpage active">
+
+  <label class="fld-label">اسم المشروع</label>
+  <input type="text" id="projectName" placeholder="مثال: أسعار المنتجات من متجر X">
+
+  <div class="box">
+    <div class="box-title">
+      <span>حاوية الصفوف (العنصر المتكرر)</span>
+      <label class="mini-check"><input type="checkbox" id="noRowSelector"> بدون حاوية (وضع الأعمدة)</label>
+    </div>
+    <div class="sel-row">
+      <input type="text" id="rowSelector" dir="ltr" placeholder=".product-card">
+      <button class="btn pick" id="pickRow" title="التقاط بالنقر — انقر عنصرين متشابهين للتعميم">🎯</button>
+      <button class="btn ghost" id="previewRow" title="معاينة">👁</button>
+    </div>
+    <div class="hint" id="rowCountHint"></div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">
+      <span>الحقول المطلوب استخراجها</span>
+      <button class="btn ghost" id="btnAutoTable" title="التقط جدولًا وسيتم توليد الصفوف والأعمدة تلقائيًا">📑 جدول تلقائي</button>
+    </div>
+    <div id="fieldsList"></div>
+    <button class="btn add" id="btnAddField">＋ إضافة حقل</button>
+  </div>
+
+  <div class="row-actions">
+    <button class="btn primary" id="btnTestExtract">🔍 تجربة الاستخراج (5 صفوف)</button>
+    <button class="btn success" id="btnSaveProject">💾 حفظ المشروع</button>
+  </div>
+
+  <div id="testResult"></div>
+</section>
+
+<!-- ==================== تبويب التنقل ==================== -->
+<section id="tab-nav" class="tabpage">
+
+  <label class="fld-label">طريقة التنقل بين الصفحات</label>
+  <div class="radio-group" id="pagModes">
+    <label><input type="radio" name="pagMode" value="none" checked> <b>بدون</b> — الصفحة الحالية فقط</label>
+    <label><input type="radio" name="pagMode" value="next"> <b>رابط "التالي"</b> — يتنقل عبر href تلقائيًا</label>
+    <label><input type="radio" name="pagMode" value="click"> <b>زر "التالي" (AJAX)</b> — ينقر دون إعادة تحميل</label>
+    <label><input type="radio" name="pagMode" value="scroll"> <b>تمرير لانهائي</b> — يمرّر حتى نهاية المحتوى</label>
+    <label><input type="radio" name="pagMode" value="pattern"> <b>نمط رابط</b> — صفحات مرقّمة في URL</label>
+  </div>
+
+  <div class="box pag-opt" data-for="next click">
+    <div class="box-title"><span>محدد زر/رابط "التالي"</span></div>
+    <div class="sel-row">
+      <input type="text" id="nextSelector" dir="ltr" placeholder="a.next, a[rel=next]">
+      <button class="btn pick" id="pickNext">🎯</button>
+      <button class="btn ghost" id="previewNext">👁</button>
+    </div>
+    <div class="hint">التقط زر «التالي» أو «» أو رقم الصفحة التالية. يتوقف تلقائيًا عند اختفائه أو تعطّله.</div>
+  </div>
+
+  <div class="box pag-opt" data-for="pattern">
+    <div class="box-title"><span>نمط الرابط — استخدم {page} مكان الرقم</span></div>
+    <input type="text" id="urlTemplate" dir="ltr" placeholder="https://site.com/list?page={page}">
+    <div class="range-row">
+      <span>من صفحة</span><input type="number" id="pageFrom" value="1" min="1">
+      <span>إلى</span><input type="number" id="pageTo" value="10" min="1">
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title"><span>خيارات متقدمة</span></div>
+    <div class="opt-grid">
+      <label>أقصى عدد صفحات<input type="number" id="optMaxPages" value="50" min="1" max="5000"></label>
+      <label>انتظار تحميل الصفحة (مللي ثانية)<input type="number" id="optPageWait" value="1500" min="0" step="100"></label>
+      <label>انتظار بعد كل تمريرة<input type="number" id="optScrollWait" value="1500" min="300" step="100"></label>
+      <label>أقصى عدد تمريرات<input type="number" id="optMaxScrolls" value="40" min="1" max="1000"></label>
+    </div>
+    <label class="mini-check"><input type="checkbox" id="optDedupe" checked> إزالة الصفوف المكررة تلقائيًا</label>
+    <label class="mini-check"><input type="checkbox" id="optSkipEmpty" checked> تجاهل الصفوف الفارغة</label>
+  </div>
+</section>
+
+<!-- ==================== تبويب البيانات ==================== -->
+<section id="tab-data" class="tabpage">
+
+  <div id="statusCard">
+    <div id="statusText">جاهز للتشغيل</div>
+    <div id="statusMeta"></div>
+    <div class="progressbar"><div id="progressFill"></div></div>
+  </div>
+
+  <div class="row-actions">
+    <button class="btn primary big" id="btnRun">▶ بدء الاستخراج</button>
+    <button class="btn danger big" id="btnStop" disabled>⏹ إيقاف</button>
+  </div>
+
+  <div class="box">
+    <div class="box-title">
+      <span>معاينة البيانات <span id="rowsBadge" class="badge">0</span></span>
+      <span>
+        <button class="btn ghost" id="btnRefreshData" title="تحديث">🔄</button>
+        <button class="btn ghost" id="btnClearData" title="مسح البيانات">🗑</button>
+      </span>
+    </div>
+    <div id="dataPreview" class="data-preview"><div class="empty">لا توجد بيانات بعد — ابدأ الاستخراج</div></div>
+  </div>
+
+  <div class="row-actions">
+    <button class="btn success" id="btnExportCSV">⬇ تصدير CSV</button>
+    <button class="btn success" id="btnExportXLSX">⬇ تصدير XLSX</button>
+  </div>
+</section>
+
+<!-- ==================== تبويب المشاريع ==================== -->
+<section id="tab-projects" class="tabpage">
+  <div class="hint">المشاريع تُحفظ في متصفحك ويمكن تشغيلها لاحقًا على نفس الموقع.</div>
+  <div id="projectsList"></div>
+</section>
+
+<div id="toast"></div>
+
+<script src="../lib/xlsx.full.min.js"></script>
+<script src="panel.js"></script>
+</body>
+</html>

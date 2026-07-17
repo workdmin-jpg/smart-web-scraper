@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "مستخرج الويب الذكي — Smart Web Scraper",
+  "version": "1.0.0",
+  "description": "أداة لإنشاء روبوت استخراج بيانات من أي موقع دون كتابة كود: نصوص، جداول، روابط، صور، ترقيم صفحات، تمرير لانهائي، وتصدير CSV/XLSX.",
+  "permissions": ["storage", "downloads", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "مستخرج الويب الذكي",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "content/picker.js",
+        "content/extractor.js",
+        "content/runner.js",
+        "content/content.js"
+      ],
+      "css": ["content/overlay.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "panel/panel.html",
+        "panel/panel.css",
+        "panel/panel.js",
+        "lib/xlsx.full.min.js",
+        "icons/icon16.png",
+        "icons/icon48.png",
+        "icons/icon128.png"
+      ],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 300px; font-family: Tahoma, 'Segoe UI', sans-serif; background: #f6f7fb; }
+  .head {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff;
+    padding: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .head .logo { font-size: 24px; }
+  .head h1 { font-size: 14px; }
+  .head p { font-size: 11px; opacity: .85; margin-top: 2px; }
+  .body { padding: 14px; }
+  button.main {
+    width: 100%; padding: 12px; border: none; border-radius: 9px;
+    background: #4f46e5; color: #fff; font-family: inherit; font-size: 13.5px;
+    font-weight: bold; cursor: pointer; margin-bottom: 8px;
+  }
+  button.main:hover { background: #4338ca; }
+  .note { font-size: 11.5px; color: #6b7280; line-height: 1.7; }
+  .err { color: #dc2626; font-size: 12px; margin-top: 8px; display: none; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <span class="logo">🕷</span>
+    <div>
+      <h1>مستخرج الويب الذكي</h1>
+      <p>استخراج البيانات دون كتابة كود</p>
+    </div>
+  </div>
+  <div class="body">
+    <button class="main" id="open">🎯 فتح لوحة الاستخراج في الصفحة</button>
+    <div class="note">
+      ستظهر لوحة جانبية داخل الصفحة تتيح لك: التقاط العناصر بالنقر، تحديد طريقة التنقل بين الصفحات، ثم بدء الاستخراج وتصدير النتائج CSV / XLSX.
+    </div>
+    <div class="err" id="err">⚠ لا يمكن تشغيل الإضافة على هذه الصفحة (صفحات chrome:// وسوق Chrome محمية من المتصفح).</div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+/* overlay.css — تنسيقات طبقات الإبراز ولوحة التحكم داخل الصفحة */
+
+#__ws_highlight {
+  position: absolute;
+  z-index: 2147483646;
+  pointer-events: none;
+  border: 2px solid #6366f1;
+  background: rgba(99, 102, 241, 0.12);
+  border-radius: 3px;
+  display: none;
+  transition: all 0.06s ease;
+}
+
+#__ws_badge {
+  position: absolute;
+  z-index: 2147483646;
+  pointer-events: none;
+  background: #6366f1;
+  color: #fff;
+  font: 11px/18px Tahoma, sans-serif;
+  padding: 0 7px;
+  border-radius: 9px;
+  display: none;
+  direction: ltr;
+}
+
+#__ws_tip {
+  position: fixed;
+  top: 12px;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 2147483647;
+  background: #1e1b4b;
+  color: #fff;
+  font: 13px/1.6 Tahoma, sans-serif;
+  padding: 10px 18px;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  direction: rtl;
+  pointer-events: none;
+  max-width: 80vw;
+  text-align: center;
+}
+
+/* حاوية لوحة التحكم */
+#__ws_panel_host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 430px;
+  z-index: 2147483646;
+  direction: rtl;
+  transition: transform 0.25s ease;
+}
+
+#__ws_panel_host.__ws_hidden {
+  transform: translateX(-430px);
+}
+
+#__ws_panel_frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.28);
+  background: #fff;
+}
+
+/* الزر العائم عند إخفاء اللوحة */
+#__ws_fab {
+  position: fixed;
+  bottom: 22px;
+  left: 22px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.5);
+  z-index: 2147483646;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#__ws_panel_host.__ws_hidden #__ws_fab {
+  display: flex;
+}
